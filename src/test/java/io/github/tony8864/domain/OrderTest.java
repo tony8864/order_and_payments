@@ -1,9 +1,6 @@
 package io.github.tony8864.domain;
 
-import io.github.tony8864.domain.vo.ConfirmedPayment;
-import io.github.tony8864.domain.vo.OrderId;
-import io.github.tony8864.domain.vo.OrderItem;
-import io.github.tony8864.domain.vo.ProductId;
+import io.github.tony8864.domain.vo.*;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -14,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderTest {
 
     private Order createOrder() {
-        return Order.create(OrderId.newId());
+        return Order.create(OrderId.newId(), CustomerId.newId());
     }
 
     private OrderItem findByProductId(ProductId id, List<OrderItem> items) {

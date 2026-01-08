@@ -54,4 +54,16 @@ public class Payment {
         }
         status = PaymentStatus.FAILED;
     }
+
+    public BigDecimal amount() {
+        return amount;
+    }
+
+    public OrderId orderId() {
+        return orderId;
+    }
+
+    public PaymentId id() {
+        return id;
+    }
 }

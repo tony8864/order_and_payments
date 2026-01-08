@@ -1,48 +1,30 @@
 package io.github.tony8864.domain;
 
 import io.github.tony8864.domain.enums.OrderStatus;
-import io.github.tony8864.domain.vo.ConfirmedPayment;
-import io.github.tony8864.domain.vo.OrderId;
-import io.github.tony8864.domain.vo.OrderItem;
-import io.github.tony8864.domain.vo.ProductId;
+import io.github.tony8864.domain.vo.*;
 
 import java.math.BigDecimal;
 import java.util.*;
 
 public class Order {
     private final OrderId id;
+    private final CustomerId customerId;
     private final List<OrderItem> items;
     private OrderStatus status;
     private BigDecimal total;
 
-    private Order(OrderId id) {
+    private Order(OrderId id, CustomerId customerId) {
         this.id = Objects.requireNonNull(id);
+        this.customerId = Objects.requireNonNull(customerId);
         this.items = new ArrayList<>();
         this.status = OrderStatus.CREATED;
         this.total = BigDecimal.ZERO;
     }
 
-    public static Order create(OrderId id) {
-        return new Order(id);
+    public static Order create(OrderId id, CustomerId customerId) {
+        return new Order(id, customerId);
     }
 
-    /**
-     * Adds a new item in the Order, or increases the item's quantity
-     *
-     * <p>
-     *     The Order {@code status} must be CREATED.
-     * </p>
-     *
-     * <p>
-     *     If {@code items} don't contain the product specified by the {@code productId}, then
-     *     a new OrderItem is created and added in the list. If the list contains the specified product,
-     *     we increase its quantity by 1.
-     * </p>
-     *
-     * @param productId
-     * @param name
-     * @param price
-     */
     public void addItem(
             ProductId productId,
             String name,
@@ -65,21 +47,6 @@ public class Order {
         calculateTotal();
     }
 
-    /**
-     * Removes a product from the Order
-     *
-     * <p>
-     *     The Order {@code status} must be CREATED.
-     * </p>
-     *
-     * <p>
-     *     The product specified by the {@code productId} must be in the {@code items}, otherwise it's an error.
-     *     The item's quantity is decreases by one, until it reaches zero.
-     *     At that point the item is removed from the list.
-     * </p>
-     *
-     * @param productId
-     */
     public void removeItem(
             ProductId productId
     ) {
