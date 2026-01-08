@@ -13,4 +13,8 @@ public record ProductId(UUID id) {
     public static ProductId newId() {
         return new ProductId(UUID.randomUUID());
     }
+
+    public static ProductId of(String id) {
+        return new ProductId(UUID.fromString(id));
+    }
 }

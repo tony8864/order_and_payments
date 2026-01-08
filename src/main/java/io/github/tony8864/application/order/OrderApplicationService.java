@@ -102,7 +102,7 @@ public class OrderApplicationService {
     }
 
     private void assertPaymentReferencesOrder(Payment payment, Order order) {
-        if (payment.orderId().equals(order.id())) {
+        if (!payment.orderId().equals(order.id())) {
             throw new CannotConfirmPaymentException("The payment does not belong to the specified order");
         }
     }
